@@ -1,0 +1,19 @@
+{
+  "name": "template-engine-team-generator",
+  "version": "1.0.0",
+  "description": "team generator",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zosotherover/template-engine-team-generator.git"
+  },
+  "author": "Bryan Pero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zosotherover/template-engine-team-generator/issues"
+  },
+  "homepage": "https://github.com/zosotherover/template-engine-team-generator#readme"
+}

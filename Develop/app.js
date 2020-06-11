@@ -10,6 +10,12 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//empty array to push teamMembers data into:
+const teamMembers = [];
+
+//renders the array into html:
+render(teamMembers);
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 const managerInfo = [
@@ -99,7 +105,7 @@ const internInfo = [
   },
 ];
 
-//prompt Manager questions then
+//prompt Manager questions then checkRole
 
 const addManager = () => {
   inquirer.prompt(managerInfo).then((answers) => {
@@ -117,6 +123,71 @@ const addManager = () => {
     addAnother();
   });
 };
+
+// prompts the engineer quetions:
+
+const addEngineer = () => {
+  inquirer.prompt(engineerInfo).then((answers) => {
+    console.log(answers);
+
+    const engineer = new Engineer(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.github
+    );
+
+    pushToArray(engineer);
+    addAnother();
+  });
+};
+
+// prompts the intern questions:
+
+const addIntern = () => {
+  inquirer.prompt(internInfo).then((answers) => {
+    console.log(answers);
+
+    const intern = new Intern(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.school
+    );
+
+    pushToArray(intern);
+    addAnother();
+  });
+};
+
+// asks if the user wants to add another team member, then checks the role, and finally runs the function for that role:
+
+const addAnother = () => {
+  inquirer.prompt(addMember).then((answers) => {
+    if (answers.role === "Engineer") {
+      addEngineer();
+    } else if (answers.role === "Intern") {
+      addIntern();
+    } else {
+      buildTeam();
+    }
+  });
+};
+
+// The answers are pushed into the teamMembers array.  The teamMembers array is called in the render function to render the information into html.
+
+const pushToArray = (answers) => {
+  teamMembers.push(answers);
+  // console.log(teamMembers);
+};
+
+const buildTeam = () => {
+  // How the data will be displayed once it's gathered into the array:
+
+  fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+};
+
+addManager();
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will

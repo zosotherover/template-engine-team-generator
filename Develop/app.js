@@ -99,6 +99,25 @@ const internInfo = [
   },
 ];
 
+//prompt Manager questions then
+
+const addManager = () => {
+  inquirer.prompt(managerInfo).then((answers) => {
+    console.log(answers);
+
+    const manager = new Manager(
+      answers.name,
+      answers.id,
+      answers.email,
+      answers.officeNumber
+    );
+
+    pushToArray(manager);
+    console.log("ARRAY", teamMembers);
+    addAnother();
+  });
+};
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
